@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<title>1st game</title>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+			font-family: arial;
+		}
+		#body{
+			background-color:  lightgrey;
+			align-content: center;
+			text-align: center;
+		}
+		#body p{
+			padding: 20px;
+		}
+		#WELCOME{
+			font-weight: bold;
+			font-size: 3.5em;
+			text-decoration: underline red;
+			color: blue;
+			margin-top: 50px;
+			margin-bottom: 40px;
+		}
+		#first{
+			font-size: 2em;
+			border-radius: 20px;
+			border-width: 0px;
+			background-color: red;
+			color: #ffd;
+			padding: 10px 30px;
+		}
+		#first:hover{
+			background-color: blue;
+			
+		}
+		#first:focus{
+			outline: none;
+		}
+		#first1{
+			margin: 30px;
+		}
+
+		#firststart{
+			width: 200px;
+			height: 25px;
+			
+		}
+		#firstend{
+			font-size: 2em;
+			border-radius: 20px;
+			border-width: 0px;
+			background-color: red;
+			color: #ffd;
+			padding: 10px 30px;
+		}
+		#firstend:hover{
+			background-color: blue;
+			
+		}
+		#firstend:focus{
+			outline: none;
+		}
+
+		#first21{
+			font-weight: bold;
+			font-size: 2.3em;
+			color: blue;
+			margin-top: 0px;
+			margin-bottom: 40px;
+		}
+		#btn{
+			font-size: 1.5em;
+			border-radius: 20px;
+			border-width: 0px;
+			background-color: red;
+			color: #ffd;
+			padding: 10px 30px;
+		}
+		#btn:hover{
+			background-color: blue;
+			
+		}
+		#btn:focus{
+			outline: none;
+		}
+	</style>
+
+
+
+
+
+
+
+</head>
+<body id="body">
+	<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><br>
+	<h1 id="WELCOME">WELCOME</h1>
+	<button id="first">let's play</button><br>
+	<div id="first1" style="display: none;"><br><h1>please enter your name to play game: </h1><br><br>
+		<h2>NAME:
+		<input id="firststart" type="text" placeholder="enter name" required></h2>
+		<br><br>
+		<button id="firstend">submit</button>
+	</div>
+	<div id="first2" style="display: none;"><h2 id="first21">play rock papper sissor game with computer </h2>
+	<h3 id="1st"></h3>
+	<h3 id="2nd"></h3>
+	<h3 id="3rd"></h3>
+	<br><br>
+	<button id="btn">rock</button><br><br>
+	<button id="btn">paper</button><br><br>
+	<button id="btn">sissor</button>
+</div>
+<script>
+	var letpaly=document.getElementById('first');
+	letpaly.addEventListener('click',firstfunction);
+
+	function firstfunction(){
+		$("#first1").show("slow");
+	}
+
+    var submit=document.getElementById('firstend');
+    var name=document.getElementById('firststart');
+    var palyername;
+
+
+    submit.addEventListener('click',secondfunction);
+
+    function secondfunction(){
+    	var name=document.getElementById('firststart').value;
+    	if (name=="") {
+    		alert("please enter your name first ");
+    	}
+    	else{
+    		palyername=name;
+    		$("#first1").hide();
+    		$("#first").hide();
+    		$("#WELCOME").hide();
+    		$("#first2").show();
+    	}
+    }
+
+
+
+
+
+
+
+	var btn=document.querySelectorAll('#btn');
+	var score=document.getElementById('1st');
+	var current=document.getElementById('2nd');
+	var winner=document.getElementById('3rd');
+    var score=[0,0];
+    var win;
+    for( let i=0;i<btn.length;i++)
+	{btn[i].addEventListener('click', mainfunction);}
+
+	function mainfunction(e) {
+var select=e.target.innerHTML;
+var computer=Math.random();
+
+if(computer<.24){
+	computer="paper";
+}
+else if(computer<.67){
+	computer="rock";
+		
+	}
+	else{
+		computer="sissor";
+	};
+   var option=result(select,computer);
+
+$('#1st').html(palyername+": "+score[0]+", computer score: "+score[1]);
+$("#2nd").html(palyername+": "+select+" "+", computer: "+computer);
+
+$("#3rd").html(win);
+if (win==palyername +" won!") {
+	var body=document.getElementById("body");
+	winner.style.backgroundColor="green";
+	setTimeout(colorfunction1,300)
+	function colorfunction1(){
+		winner.style.backgroundColor="lightgrey";
+	}
+	
+}
+else if (win=="computer won!") {
+	var body=document.getElementById("body");
+	winner.style.backgroundColor="red";
+	setTimeout(colorfunction2,300)
+	function colorfunction2(){
+		winner.style.backgroundColor="lightgrey";
+	}
+}
+else{
+	var body=document.getElementById("body");
+	winner.style.backgroundColor="orange";
+	setTimeout(colorfunction3,300)
+	function colorfunction3(){
+		winner.style.backgroundColor="lightgrey";
+	}
+}
+}
+
+
+
+function result(select,computer){
+	if(select===computer){
+		win="it's draw";
+	}
+	else{
+	if(select==="paper"){
+		if (computer==="rock") {
+			score[0]++;
+win=palyername +" won!";
+		}
+		else
+		{
+			score[1]++;
+			win="computer won!";
+		}
+	}
+	if(select==="rock"){
+		if (computer==="sissor") {
+			score[0]++;
+			win=palyername +" won!";
+		}
+		else
+		{
+			score[1]++;
+			win="computer won!";
+		}
+	}
+	if(select==="sissor"){
+		if(computer==="paper"){
+			score[0]++;
+			win=palyername +" won!";
+			
+		}
+		else
+		{
+			score[1]++;
+			win="computer won!";
+		}
+	}
+}}
+
+
+
+
+
+</script>
+
+
+
+
+
+</body>
+</html>
